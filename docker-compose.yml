@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  server:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      FRONTEND_URL: http://localhost:8080
+      DATABASE_URL: file:/data/dev.db
+      JWT_SECRET: ${JWT_SECRET:-your-secret-key}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      CUSTOM_AI_BASE_URL: ${CUSTOM_AI_BASE_URL:-}
+      CUSTOM_AI_TOKEN: ${CUSTOM_AI_TOKEN:-}
+      CUSTOM_AI_MODELS: ${CUSTOM_AI_MODELS:-deepseek/deepseek-chat,google/gemini-2.5-pro,openai/gpt-4.1}
+    volumes:
+      - db_data:/data
+    ports:
+      - "3001:3001"
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: /api
+    depends_on:
+      - server
+    ports:
+      - "8080:80"
+volumes:
+  db_data:
