@@ -4,7 +4,6 @@ import { useNotes } from './hooks/useNotes';
 import Sidebar from './components/Sidebar';
 import NoteList from './components/NoteList';
 import NoteEditor from './components/NoteEditor';
-import Auth from './components/Auth';
 import Dashboard from './components/Dashboard';
 import AppNavigation from './components/AppNavigation';
 import TodoList from './components/TodoList';
@@ -42,9 +41,7 @@ const AppContent: React.FC = () => {
     );
   }
 
-  if (!user) {
-    return <Auth onAuthSuccess={() => {}} />;
-  }
+  // Always proceed without showing login UI; guest login handled in useAuth
 
   const handleCreateNote = async () => {
     try {
@@ -206,8 +203,6 @@ const AppContent: React.FC = () => {
         <AppNavigation
           activeModule={activeModule}
           onModuleChange={setActiveModule}
-          user={user}
-          onLogout={logout}
           isMobile={false}
         />
       </div>
@@ -231,16 +226,7 @@ const AppContent: React.FC = () => {
               <span className="text-fresh">N</span>
               <span className="text-fun-blue">ginal</span>
             </h1>
-            <div className="flex items-center space-x-2">
-              <span className="text-sm font-medium text-gray-700">{user?.username}</span>
-              <button
-                onClick={logout}
-                className="p-2 text-red-600 hover:text-red-700"
-                title="退出登录"
-              >
-                <LogOutIcon />
-              </button>
-            </div>
+          <div className="flex items-center space-x-2"></div>
           </div>
         </div>
 

@@ -5,16 +5,14 @@ import {
   StickyNoteIcon,
   CheckSquareIcon,
   MessageCircleIcon,
-  ClockIcon,
-  UserIcon,
-  LogOutIcon
+  ClockIcon
 } from './Icons';
 
 interface AppNavigationProps {
   activeModule: AppModule;
   onModuleChange: (module: AppModule) => void;
-  user: { username: string } | null;
-  onLogout: () => void;
+  user?: { username: string } | null;
+  onLogout?: () => void;
   isMobile?: boolean;
   isOpen?: boolean;
   onCloseMobile?: () => void;
@@ -136,26 +134,8 @@ const AppNavigation: React.FC<AppNavigationProps> = ({
           })}
         </nav>
 
-        {/* User Section */}
-        <div className="p-4 border-t-2 border-black bg-white/80">
-          {user && (
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center">
-                <UserIcon className="w-5 h-5 text-gray-600 mr-2" />
-                <span className="text-sm font-medium text-gray-700 truncate max-w-32">
-                  {user.username}
-                </span>
-              </div>
-            </div>
-          )}
-          <button
-            onClick={onLogout}
-            className="w-full flex items-center justify-center px-3 py-2 bg-red-50 text-red-600 hover:bg-red-100 border-2 border-red-200 rounded-xl font-medium transition-colors"
-          >
-            <LogOutIcon className="w-4 h-4 mr-2" />
-            退出登录
-          </button>
-        </div>
+        {/* Footer spacing only; user/logout removed for pure entry */}
+        <div className="p-4 border-t-2 border-black bg-white/80"></div>
       </div>
     </>
   );
