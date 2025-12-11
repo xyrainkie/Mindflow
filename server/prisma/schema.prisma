@@ -19,6 +19,7 @@ model User {
   updatedAt DateTime @updatedAt
 
   notes Note[]
+  transactions Transaction[]
 
   @@map("users")
 }
@@ -35,6 +36,22 @@ model Note {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("notes")
+}
+
+model Transaction {
+  id          String   @id @default(cuid())
+  amount      Float
+  currency    String   @default("CNY")
+  category    String
+  note        String?
+  occurredAt  DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("transactions")
 }
 
 // Simplified schema without tags for initial version

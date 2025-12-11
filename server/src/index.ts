@@ -7,6 +7,7 @@ import { prisma } from './config/database.js';
 import authRoutes from './routes/auth.js';
 import noteRoutes from './routes/notes.js';
 import aiRoutes from './routes/ai.js';
+import accountingRoutes from './routes/accounting.js';
 import assetRoutes from './routes/assets.js';
 
 dotenv.config();
@@ -56,6 +57,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/notes', noteRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/accounting', accountingRoutes);
 app.use('/api/assets', assetRoutes);
 
 app.use((req, res) => {
