@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>oRAINginal Notes</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Handwriting styles for Journal look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Long+Cang&family=Ma+Shan+Zheng&family=Patrick+Hand&family=Zhi+Mang+Xing&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Quill Editor CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.0/dist/quill.snow.css" rel="stylesheet" />
+    
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              // Dopamine Palette
+              primary: '#FF0080', // Vibrant Pink
+              secondary: '#7928CA', // Electric Purple
+              accent: '#FF4D4D', // Red-Orange
+              highlight: '#FFD166', // Bright Yellow
+              fresh: '#06D6A0', // Mint Green
+              
+              // UI Colors
+              background: '#FFF0F5', // Light Pinkish White
+              surface: '#ffffff',
+              'journal-paper': '#FFFBEB', // Warm Amber Paper
+              
+              // Specific functional colors (Bright & Fun)
+              'fun-blue': '#118AB2',
+              'fun-pink': '#EF476F',
+              'fun-yellow': '#FFD166',
+              'fun-green': '#06D6A0',
+              'fun-purple': '#7928CA',
+            },
+            fontFamily: {
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+              hand1: ['"Ma Shan Zheng"', 'cursive'],
+              hand2: ['"Long Cang"', 'cursive'],
+              hand3: ['"Zhi Mang Xing"', 'cursive'],
+              engHand: ['"Patrick Hand"', 'cursive'],
+            },
+            boxShadow: {
+              'dopamine': '4px 4px 0px 0px rgba(0,0,0,1)',
+              'dopamine-sm': '2px 2px 0px 0px rgba(0,0,0,1)',
+              'dopamine-hover': '6px 6px 0px 0px rgba(0,0,0,1)',
+              'soft-glow': '0 4px 20px -2px rgba(255, 0, 128, 0.2)',
+            }
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: 'Inter', system-ui, sans-serif;
+        background-color: #FFF0F5;
+        background-image: radial-gradient(#FFD166 1px, transparent 1px), radial-gradient(#06D6A0 1px, transparent 1px);
+        background-size: 40px 40px;
+        background-position: 0 0, 20px 20px;
+        color: #1e293b;
+      }
+      
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #FFD166;
+        border-radius: 4px;
+        border: 2px solid transparent;
+        background-clip: content-box;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #FF0080;
+        border: 2px solid transparent;
+        background-clip: content-box;
+      }
+
+      /* Quill Editor Customization for Journal Look */
+      .ql-container {
+        font-family: 'Inter', sans-serif;
+        font-size: 16px;
+      }
+      
+      .ql-editor {
+        padding: 20px;
+        line-height: 1.8;
+      }
+
+      .ql-editor.ql-blank::before {
+        font-style: italic;
+        color: #FF0080;
+        opacity: 0.4;
+      }
+      
+      .ql-toolbar.ql-snow {
+        border: none !important;
+        background: transparent;
+      }
+      
+      .ql-container.ql-snow {
+        border: none !important;
+      }
+
+      /* Custom Fonts in Quill Dropdown */
+      .ql-font-inter { font-family: 'Inter', sans-serif; }
+      .ql-font-mashanzheng { font-family: 'Ma Shan Zheng', cursive; }
+      .ql-font-longcang { font-family: 'Long Cang', cursive; }
+      .ql-font-zhimangxing { font-family: 'Zhi Mang Xing', cursive; }
+      .ql-font-patrickhand { font-family: 'Patrick Hand', cursive; }
+      
+      /* Dropdown styling to show actual font preview */
+      .ql-picker.ql-font .ql-picker-item[data-value="inter"]::before { content: '标准字体'; font-family: 'Inter'; }
+      .ql-picker.ql-font .ql-picker-item[data-value="mashanzheng"]::before { content: '马善政毛笔'; font-family: 'Ma Shan Zheng'; }
+      .ql-picker.ql-font .ql-picker-item[data-value="longcang"]::before { content: '龙藏草书'; font-family: 'Long Cang'; }
+      .ql-picker.ql-font .ql-picker-item[data-value="zhimangxing"]::before { content: '志莽行书'; font-family: 'Zhi Mang Xing'; }
+      .ql-picker.ql-font .ql-picker-item[data-value="patrickhand"]::before { content: 'Patrick Hand'; font-family: 'Patrick Hand'; }
+
+      .ql-picker.ql-font .ql-picker-label[data-value="inter"]::before { content: '标准字体'; font-family: 'Inter'; }
+      .ql-picker.ql-font .ql-picker-label[data-value="mashanzheng"]::before { content: '马善政毛笔'; font-family: 'Ma Shan Zheng'; }
+      .ql-picker.ql-font .ql-picker-label[data-value="longcang"]::before { content: '龙藏草书'; font-family: 'Long Cang'; }
+      .ql-picker.ql-font .ql-picker-label[data-value="zhimangxing"]::before { content: '志莽行书'; font-family: 'Zhi Mang Xing'; }
+      .ql-picker.ql-font .ql-picker-label[data-value="patrickhand"]::before { content: 'Patrick Hand'; font-family: 'Patrick Hand'; }
+
+      /* Emoji Picker Styles */
+      emoji-picker {
+        width: 100%;
+        height: 320px;
+        --border-radius: 0.5rem;
+        --background: #ffffff;
+        --indicator-color: #FF0080;
+      }
+      
+      /* Dopamine transitions */
+      .dopamine-trans {
+        transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "uuid": "https://aistudiocdn.com/uuid@^13.0.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "quill": "https://cdn.jsdelivr.net/npm/quill@2.0.0/+esm",
+    "emoji-picker-element": "https://cdn.jsdelivr.net/npm/emoji-picker-element@^1.20.0/+esm"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

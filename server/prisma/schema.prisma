@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  notes Note[]
+
+  @@map("users")
+}
+
+model Note {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  category  String   @default("MEMO")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notes")
+}
+
+// Simplified schema without tags for initial version
+// model Tag {
+//   id     String @id @default(cuid())
+//   name   String @unique
+//   color  String @default("#6366f1")
+//
+//   notes NoteTag[]
+//
+//   @@map("tags")
+// }
+//
+// model NoteTag {
+//   noteId String
+//   tagId  String
+//
+//   note Note @relation(fields: [noteId], references: [id], onDelete: Cascade)
+//   tag  Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+//
+//   @@id([noteId, tagId])
+//   @@map("note_tags")
+// }
